@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+html,
+body {
+	box-sizing: border-box;
+	margin: 0 0;
+	border: none;
+	padding: 0 0;
+	width: 100%;
+	height: 100%;
+	font-family: "sofia-pro",sans-serif;
+	font-size: 16px; /* typical and customary in various devices and browsers */
+    font-weight:300;
+	text-align: left;
+}
+
+#modal-background {
+	z-index: 10; /* over page but under modal */
+	position: fixed;
+    top: 0;
+	left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* 60% opacity -- "slightly more black than not" */
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-ms-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+
+#modal-background.modal-background-closed {
+	background-color: rgba(0,0,0,0);
+}
+
+#modal {
+	z-index: 20; /* over modal-background */
+	display:inline-block;
+    position: fixed;
+	/*overflow: hidden;*/
+	left: 15%;
+	top: 20px;
+	margin: 0 auto; /* stays centered as shrinks on close */
+	border: none;
+	padding: 0 0;
+	width: 70%; /* allows space at top, modal-header, and video controls (below) to show on virtually all displays */
+	/*height: auto;*/
+	background-color: transparent;
+	/* the following transitions are used for the modal to resize */
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-ms-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+
+#modal.modal-closed {
+	left:50%;
+	width:0;
+	height:0;
+}
+
+#video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* to maintain hi-def proportions of video */
+    padding-top: 52px; /* twice video-control bar height; divided in two (in practice) */
+	/* The following transitions are used for my-video to resize. Applying similar transitions to #my-video didn't work: If tried to transition className, as here, then video became deformed; if tried to transition height and width, video just abruptly disappeared. */
+	-webkit-transition: -webkit-transform 1s;
+	-moz-transition: -moz-transform 1s;
+	-ms-transition: -ms-transform 1s;
+	-o-transition: -o-transform 1s;
+	transition: transform 1s;
+}
+
+#video-wrapper.video-wrapper-closed {
+    -ms-transform: scale(0, 0); /* IE 9 */
+    -webkit-transform: scale(0, 0); /* Safari */
+    transform: scale(0, 0);
+}
+
+#modal-header {
+    z-index:10; /* over iframe-video (below) */
+    position:absolute;
+    top:0;
+    left: 0;
+    width:100%;
+    height: 26px;
+}
+
+#modal-header.modal-header-closed {
+	display:none;
+}
+
+#modal-label {
+    float:left;
+    margin-top:0;
+    margin-left:10px;
+    height:26px;
+    width:150px;
+    color:#ccc;
+	font-weight:normal;
+}
+
+#modal-closer {
+    float:right;
+    margin-top:-9px;
+    margin-right:9px;
+    font-size:26px;
+    color:#ccc;
+}
+
+#modal-closer:hover,
+#modal-closer:focus,
+#modal-closer:active{
+    cursor:pointer;
+    color:#fff;
+}
+
+#my-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border:none;
+    background-color:#000;
+	/* the following transitions are used for my-video to resize
+	-webkit-transition: width 1s, height 1s, -webkit-transform 1s;
+	-moz-transition: width 1s, height 1s, -moz-transform 1s;
+	-ms-transition: width 1s, height 1s, -ms-transform 1s;
+	-o-transition: width 1s, height 1s, -o-transform 1s;
+	transition: width 1s, height 1s, transform 1s;*/
+}
+
+.video-js .vjs-big-play-button { /*  to center button, vs. default in top-left corner */
+	left: 50%;
+	top: 50%;
+	margin-left: -1.5em; /* = width/2 */
+	margin-top: -1em; /* = height/2 */
+}

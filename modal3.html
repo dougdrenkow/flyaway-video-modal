@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>A Video by Douglas Drenkow</title>
+
+		<link href="video-js.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="strvidmodal3.css" media="screen, handheld" ><!-- after video-js.css to override styles as needed -->
+		
+		<!-- to support IE8 -->
+		<script src="videojs-ie8.min.js"></script>
+		
+		<script src="https://use.typekit.net/opl4hma.js"></script><!-- Sofia Pro -->
+		<script>try{Typekit.load({ async: false });}catch(e){}</script>
+    
+    </head>
+
+    <body>
+
+        <div id="modal-background"></div><!-- "grays out" rest of page when modal is present -->
+                   
+        <div id="modal">
+            
+            <div id="video-wrapper"><!-- maintains hi-def video proportions -->
+
+                <div id="modal-header">
+
+                    <div id="modal-label">HLS ABR VOD</div>
+
+                    <div id="modal-closer" onclick="closeModal()">&times;</div>
+
+                </div><!-- #modal-header -->
+
+                <!-- <iframe id="iframe-video" src="http://videoplayer.vodobox.com/vodobox_player.php?vid=http%3A%2F%2Fdouglasdrenkow.com%2Fvideos%2Faviarytheater%2Faviarytheater.m3u8&img=http://douglasdrenkow.com/videos/aviarytheater/aviarytheater_1.png&play=auto" allowfullscreen></iframe><!-- HLS ABR streaming, at three sizes and rates -->
+                
+				<video id="my-video" class="video-js vjs-default-skin" controls preload="auto" data-setup="{}" >
+					<source
+					src="http://douglasdrenkow.com/videos/aviarytheater/aviarytheater.m3u8"
+					type="application/x-mpegURL">
+				</video>
+            
+            </div><!-- #video-wrapper -->
+        
+        </div><!-- #modal -->
+
+		<script src="video.js"></script>
+		
+		<script src="videojs-contrib-hls.min.js"></script>
+		
+		<script>
+			
+			var player = videojs('my-video');
+			
+			player.play();
+		
+            function closeModal() {
+                
+				document.getElementById("modal-background").className = "modal-background-closed";
+                
+                document.getElementById("modal").className = "modal-closed";
+				
+				document.getElementById("modal-header").className = "modal-header-closed";
+                
+				document.getElementsByClassName("vjs-control-bar")[0].setAttribute("style", "top:-9999px;");
+                
+				document.getElementsByClassName("vjs-loading-spinner")[0].setAttribute("style", "display:none;");
+				
+				document.getElementById("video-wrapper").className = "video-wrapper-closed"; // works on Edge, whereas applying same class specs on #my-video didn't -- video just abruptly disappeared.
+				
+				player.src({src:"", type:"application/x-mpegURL"});
+            
+            }
+
+        </script>
+
+    </body>
+
+</html>
